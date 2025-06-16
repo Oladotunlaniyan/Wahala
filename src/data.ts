@@ -31,80 +31,355 @@ interface EmergencyCategory {
   contacts: Contact[];
 }
 
-// Storing hard-coded data here for a while
+// Nigerian States Police Contact Numbers
+const statePoliceContacts = {
+  "ABIA": "08035415408, 08079210003, 08079210004, 08079210005",
+  "ADAMAWA": "08089671313",
+  "AKWA IBOM": "08039213071, 08020913810",
+  "ANAMBRA": "07039194332, 08024922772, 08075390511, 08182951257",
+  "BAUCHI": "08151849417, 08127162434, 08084763669, 08073794920",
+  "BAYELSA": "07034578208",
+  "BENUE": "08066006475, 08053039936, 07075390677",
+  "BORNO": "08068075581, 08036071667, 08123823322",
+  "CROSS RIVER": "08133568456, 07053355415",
+  "DELTA": "08036684974",
+  "EBONYI": "07064515001, 08125273721, 08084704673",
+  "EDO": "08037646272, 08077773721, 08067551618",
+  "EKITI": "08062335577, 07089310359",
+  "ENUGU": "08032003702, 08075390883, 08086671202",
+  "FCT ABUJA": "07057337653, 08061581938, 08032003913",
+  "GOMBE": "08150567771, 08151855014",
+  "IMO": "08034773600, 08037037283",
+  "JIGAWA": "08075391069, 07089846285, 08123821598",
+  "KADUNA": "08123822284",
+  "KANO": "08032419754, 08123821575",
+  "KATSINA": "08075391255, 08075391250",
+  "KEBBI": "08038797644, 08075391307",
+  "KOGI": "08075391335, 07038329084",
+  "KWARA": "07032069501, 08125275046",
+  "LAGOS": "07055462708, 08035963919",
+  "NASARAWA": "08123821571, 07075391560",
+  "NIGER": "08081777498, 08127185198",
+  "OGUN": "08032136765, 08081770416",
+  "ONDO": "07034313903, 08075391808",
+  "OSUN": "08075872433, 08039537995, 08123823981",
+  "OYO": "08081768614, 08150777888",
+  "PLATEAU": "08126375938, 08075391844, 08038907662",
+  "RIVERS": "08032003514, 08073777717",
+  "SOKOTO": "07068848035, 08075391943",
+  "TARABA": "08140089863, 08073260267",
+  "YOBE": "07039301585, 08035067570",
+  "ZAMFARA": "08106580123"
+};
+
+// Updated emergency data with comprehensive state coverage
 const emergencyData: EmergencyData = {
   "Lagos": {
     "Ikeja": {
-      "Police": "+2348012345678",
+      "Police": statePoliceContacts.LAGOS,
       "Fire Service": "+2348076543210",
       "Ambulance": "+2348034567890"
     },
     "Surulere": {
-      "Police": "+2348011112233",
+      "Police": statePoliceContacts.LAGOS,
       "Fire Service": "+2348022223344",
       "Ambulance": "+2348033334455"
     },
     "Victoria Island": {
-      "Police": "+2348055556666",
+      "Police": statePoliceContacts.LAGOS,
       "Fire Service": "+2348066667777",
       "Ambulance": "+2348077778888"
     },
     "Lekki": {
-      "Police": "+2348088889999",
+      "Police": statePoliceContacts.LAGOS,
       "Fire Service": "+2348099990000",
       "Ambulance": "+2348000001111"
     }
   },
-  "Federal Capital territory": {
+  "Federal Capital Territory": {
+    "Abuja": {
+      "Police": statePoliceContacts["FCT ABUJA"],
+      "Fire Service": "+2349076543210",
+      "Ambulance": "+2349034567890"
+    },
     "Karu": {
-      "Police": "+2349012345678",
+      "Police": statePoliceContacts["FCT ABUJA"],
       "Fire Service": "+2349076543210",
       "Ambulance": "+2349034567890"
     }, 
     "Garki": {
-      "Police": "+2349012345678",
+      "Police": statePoliceContacts["FCT ABUJA"],
       "Fire Service": "+2349076543210",
       "Ambulance": "+2349034567890"
     },
     "Wuse": {
-      "Police": "+2349011223344",
+      "Police": statePoliceContacts["FCT ABUJA"],
       "Fire Service": "+2349022334455",
       "Ambulance": "+2349033445566"
     },
     "Maitama": {
-      "Police": "+2349044556677",
+      "Police": statePoliceContacts["FCT ABUJA"],
       "Fire Service": "+2349055667788",
       "Ambulance": "+2349066778899"
     }
   },
   "Kano": {
     "Fagge": {
-      "Police": "+2348111223344",
+      "Police": statePoliceContacts.KANO,
       "Fire Service": "+2348122334455",
       "Ambulance": "+2348133445566"
     },
     "Dala": {
-      "Police": "+2348144556677",
+      "Police": statePoliceContacts.KANO,
       "Fire Service": "+2348155667788",
       "Ambulance": "+2348166778899"
     }
   },
   "Rivers": {
     "Port Harcourt": {
-      "Police": "+2348177889900",
+      "Police": statePoliceContacts.RIVERS,
       "Fire Service": "+2348188990011",
       "Ambulance": "+2348199001122"
     },
     "Obio-Akpor": {
-      "Police": "+2348200112233",
+      "Police": statePoliceContacts.RIVERS,
       "Fire Service": "+2348211223344",
       "Ambulance": "+2348222334455"
     }
+  },
+  // Adding all other Nigerian states with police contacts
+  "Abia": {
+    "Umuahia": {
+      "Police": statePoliceContacts.ABIA,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Adamawa": {
+    "Yola": {
+      "Police": statePoliceContacts.ADAMAWA,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Akwa Ibom": {
+    "Uyo": {
+      "Police": statePoliceContacts["AKWA IBOM"],
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Anambra": {
+    "Awka": {
+      "Police": statePoliceContacts.ANAMBRA,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Bauchi": {
+    "Bauchi": {
+      "Police": statePoliceContacts.BAUCHI,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Bayelsa": {
+    "Yenagoa": {
+      "Police": statePoliceContacts.BAYELSA,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Benue": {
+    "Makurdi": {
+      "Police": statePoliceContacts.BENUE,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Borno": {
+    "Maiduguri": {
+      "Police": statePoliceContacts.BORNO,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Cross River": {
+    "Calabar": {
+      "Police": statePoliceContacts["CROSS RIVER"],
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Delta": {
+    "Asaba": {
+      "Police": statePoliceContacts.DELTA,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Ebonyi": {
+    "Abakaliki": {
+      "Police": statePoliceContacts.EBONYI,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Edo": {
+    "Benin City": {
+      "Police": statePoliceContacts.EDO,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Ekiti": {
+    "Ado Ekiti": {
+      "Police": statePoliceContacts.EKITI,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Enugu": {
+    "Enugu": {
+      "Police": statePoliceContacts.ENUGU,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Gombe": {
+    "Gombe": {
+      "Police": statePoliceContacts.GOMBE,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Imo": {
+    "Owerri": {
+      "Police": statePoliceContacts.IMO,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Jigawa": {
+    "Dutse": {
+      "Police": statePoliceContacts.JIGAWA,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Kaduna": {
+    "Kaduna": {
+      "Police": statePoliceContacts.KADUNA,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Katsina": {
+    "Katsina": {
+      "Police": statePoliceContacts.KATSINA,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Kebbi": {
+    "Birnin Kebbi": {
+      "Police": statePoliceContacts.KEBBI,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Kogi": {
+    "Lokoja": {
+      "Police": statePoliceContacts.KOGI,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Kwara": {
+    "Ilorin": {
+      "Police": statePoliceContacts.KWARA,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Nasarawa": {
+    "Lafia": {
+      "Police": statePoliceContacts.NASARAWA,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Niger": {
+    "Minna": {
+      "Police": statePoliceContacts.NIGER,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Ogun": {
+    "Abeokuta": {
+      "Police": statePoliceContacts.OGUN,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Ondo": {
+    "Akure": {
+      "Police": statePoliceContacts.ONDO,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Osun": {
+    "Osogbo": {
+      "Police": statePoliceContacts.OSUN,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Oyo": {
+    "Ibadan": {
+      "Police": statePoliceContacts.OYO,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Plateau": {
+    "Jos": {
+      "Police": statePoliceContacts.PLATEAU,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Sokoto": {
+    "Sokoto": {
+      "Police": statePoliceContacts.SOKOTO,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Taraba": {
+    "Jalingo": {
+      "Police": statePoliceContacts.TARABA,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Yobe": {
+    "Damaturu": {
+      "Police": statePoliceContacts.YOBE,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
+  },
+  "Zamfara": {
+    "Gusau": {
+      "Police": statePoliceContacts.ZAMFARA,
+      "Fire Service": "Contact local fire service",
+      "Ambulance": "Contact local medical services"
+    }
   }
 };
-
-export default emergencyData;
-export type { EmergencyData, EmergencyServices, Area, State };
 
 const emergencyContacts: EmergencyCategory[] = [
   {
@@ -147,4 +422,6 @@ const emergencyContacts: EmergencyCategory[] = [
   }
 ];
 
-export { emergencyContacts, type Contact, type EmergencyCategory };
+export default emergencyData;
+export { statePoliceContacts, emergencyContacts };
+export type { EmergencyData, EmergencyServices, Area, State, Contact, EmergencyCategory };

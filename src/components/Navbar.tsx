@@ -35,58 +35,176 @@ const Navbar = () => {
 
   // Function to find matching emergency contacts based on location
   const findLocalEmergencyContacts = (address, rawAddress) => {
-    if (!address || !emergencyData) return null;
+  if (!address || !emergencyData) return null;
 
-    const addressLower = address.toLowerCase();
-    const state = rawAddress?.state || '';
-    const city = rawAddress?.city || rawAddress?.town || rawAddress?.village || '';
-    const lga = rawAddress?.county || rawAddress?.state_district || '';
+  const addressLower = address.toLowerCase();
+  const state = rawAddress?.state || '';
+  const city = rawAddress?.city || rawAddress?.town || rawAddress?.village || '';
+  const lga = rawAddress?.county || rawAddress?.state_district || '';
 
-    // Try to match state first
-    let matchedState = null;
-    let matchedLGA = null;
-
-    // Direct state name matching
-    Object.keys(emergencyData).forEach(stateKey => {
-      if (state.toLowerCase().includes(stateKey.toLowerCase()) || 
-          addressLower.includes(stateKey.toLowerCase())) {
-        matchedState = stateKey;
-      }
-    });
-
-    // If state is found, try to match LGA
-    if (matchedState && emergencyData[matchedState]) {
-      Object.keys(emergencyData[matchedState]).forEach(lgaKey => {
-        if (city.toLowerCase().includes(lgaKey.toLowerCase()) ||
-            lga.toLowerCase().includes(lgaKey.toLowerCase()) ||
-            addressLower.includes(lgaKey.toLowerCase())) {
-          matchedLGA = lgaKey;
-        }
-      });
-
-      // Return contacts if both state and LGA are found
-      if (matchedLGA && emergencyData[matchedState][matchedLGA]) {
-        return {
-          state: matchedState,
-          lga: matchedLGA,
-          contacts: emergencyData[matchedState][matchedLGA]
-        };
-      }
-
-      // If only state is found, return first available LGA contacts as fallback
-      const firstLGA = Object.keys(emergencyData[matchedState])[0];
-      if (firstLGA) {
-        return {
-          state: matchedState,
-          lga: firstLGA,
-          contacts: emergencyData[matchedState][firstLGA],
-          isFallback: true
-        };
-      }
-    }
-    return null;
+  // Create state mapping for better matching
+  const stateMapping = {
+    'federal capital territory': 'Federal Capital Territory',
+    'abuja': 'Federal Capital Territory',
+    'fct': 'Federal Capital Territory',
+    'lagos': 'Lagos',
+    'lagos state': 'Lagos',
+    'kano': 'Kano',
+    'kano state': 'Kano',
+    'rivers': 'Rivers',
+    'rivers state': 'Rivers',
+    'abia': 'Abia',
+    'abia state': 'Abia',
+    'adamawa': 'Adamawa',
+    'adamawa state': 'Adamawa',
+    'akwa ibom': 'Akwa Ibom',
+    'akwa ibom state': 'Akwa Ibom',
+    'anambra': 'Anambra',
+    'anambra state': 'Anambra',
+    'bauchi': 'Bauchi',
+    'bauchi state': 'Bauchi',
+    'bayelsa': 'Bayelsa',
+    'bayelsa state': 'Bayelsa',
+    'benue': 'Benue',
+    'benue state': 'Benue',
+    'borno': 'Borno',
+    'borno state': 'Borno',
+    'cross river': 'Cross River',
+    'cross river state': 'Cross River',
+    'delta': 'Delta',
+    'delta state': 'Delta',
+    'ebonyi': 'Ebonyi',
+    'ebonyi state': 'Ebonyi',
+    'edo': 'Edo',
+    'edo state': 'Edo',
+    'ekiti': 'Ekiti',
+    'ekiti state': 'Ekiti',
+    'enugu': 'Enugu',
+    'enugu state': 'Enugu',
+    'gombe': 'Gombe',
+    'gombe state': 'Gombe',
+    'imo': 'Imo',
+    'imo state': 'Imo',
+    'jigawa': 'Jigawa',
+    'jigawa state': 'Jigawa',
+    'kaduna': 'Kaduna',
+    'kaduna state': 'Kaduna',
+    'katsina': 'Katsina',
+    'katsina state': 'Katsina',
+    'kebbi': 'Kebbi',
+    'kebbi state': 'Kebbi',
+    'kogi': 'Kogi',
+    'kogi state': 'Kogi',
+    'kwara': 'Kwara',
+    'kwara state': 'Kwara',
+    'nasarawa': 'Nasarawa',
+    'nasarawa state': 'Nasarawa',
+    'niger': 'Niger',
+    'niger state': 'Niger',
+    'ogun': 'Ogun',
+    'ogun state': 'Ogun',
+    'ondo': 'Ondo',
+    'ondo state': 'Ondo',
+    'osun': 'Osun',
+    'osun state': 'Osun',
+    'oyo': 'Oyo',
+    'oyo state': 'Oyo',
+    'plateau': 'Plateau',
+    'plateau state': 'Plateau',
+    'sokoto': 'Sokoto',
+    'sokoto state': 'Sokoto',
+    'taraba': 'Taraba',
+    'taraba state': 'Taraba',
+    'yobe': 'Yobe',
+    'yobe state': 'Yobe',
+    'zamfara': 'Zamfara',
+    'zamfara state': 'Zamfara'
   };
 
+  // Try to match state using mapping
+  let matchedState = null;
+  let matchedLGA = null;
+
+  // Check state from API response first
+  const stateLower = state.toLowerCase();
+  if (stateMapping[stateLower]) {
+    matchedState = stateMapping[stateLower];
+  }
+
+  // If no match from API state, try to match from full address
+  if (!matchedState) {
+    for (const [key, value] of Object.entries(stateMapping)) {
+      if (addressLower.includes(key)) {
+        matchedState = value;
+        break;
+      }
+    }
+  }
+
+  // Special handling for Abuja/FCT
+  if (!matchedState && (
+    addressLower.includes('abuja') || 
+    addressLower.includes('federal capital territory') || 
+    addressLower.includes('fct')
+  )) {
+    matchedState = 'Federal Capital Territory';
+  }
+
+  // If state is found, try to match LGA/Area
+  if (matchedState && emergencyData[matchedState]) {
+    const areas = Object.keys(emergencyData[matchedState]);
+    
+    // Try to match city/area names
+    for (const area of areas) {
+      if (city.toLowerCase().includes(area.toLowerCase()) ||
+          lga.toLowerCase().includes(area.toLowerCase()) ||
+          addressLower.includes(area.toLowerCase())) {
+        matchedLGA = area;
+        break;
+      }
+    }
+
+    // Special handling for Abuja areas
+    if (matchedState === 'Federal Capital Territory' && !matchedLGA) {
+      // Check for specific Abuja areas
+      const abujaAreas = ['garki', 'wuse', 'maitama', 'karu'];
+      for (const abujaArea of abujaAreas) {
+        if (addressLower.includes(abujaArea)) {
+          matchedLGA = abujaArea.charAt(0).toUpperCase() + abujaArea.slice(1);
+          break;
+        }
+      }
+      
+      // Default to Abuja if no specific area found
+      if (!matchedLGA && areas.includes('Abuja')) {
+        matchedLGA = 'Abuja';
+      }
+    }
+
+    // Return contacts if both state and LGA are found
+    if (matchedLGA && emergencyData[matchedState][matchedLGA]) {
+      return {
+        state: matchedState,
+        lga: matchedLGA,
+        contacts: emergencyData[matchedState][matchedLGA]
+      };
+    }
+
+    // If only state is found, return first available LGA contacts as fallback
+    const firstLGA = areas[0];
+    if (firstLGA) {
+      return {
+        state: matchedState,
+        lga: firstLGA,
+        contacts: emergencyData[matchedState][firstLGA],
+        isFallback: true
+      };
+    }
+  }
+
+  console.log('No match found for:', { state: stateLower, city, address: addressLower });
+  return null;
+};
   // Function to get service icon
   const getServiceIcon = (service) => {
     if (service.toLowerCase().includes('police')) {
@@ -199,7 +317,7 @@ const Navbar = () => {
     setSavedLocations(updatedSavedLocations);
     localStorage.setItem('savedLocations', JSON.stringify(updatedSavedLocations));
     
-    
+    // Show success message (I might add a toast here)
     alert('Location saved successfully!');
   };
 
@@ -385,7 +503,7 @@ const Navbar = () => {
                       </div>
                       <p className="text-yellow-700 text-sm">
                         Unable to automatically find local emergency contacts for this location. 
-                        Use the "General Emergency Contacts" button for nationwide emergency numbers,
+                        Use the <strong>"General Emergency Contacts"</strong>button for nationwide emergency numbers,
                         or manually select your state and LGA in the main interface.
                       </p>
                     </div>
