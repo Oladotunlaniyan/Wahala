@@ -12,6 +12,9 @@ interface Area {
 
 // State interface containing areas
 interface State {
+
+
+  
   [stateName: string]: Area;
 }
 
