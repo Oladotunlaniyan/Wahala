@@ -3,7 +3,7 @@
 ## Wahala-Mu — Nigeria Emergency Contact Directory
 
 **Version:** 1.0  
-**Status:** Live (as of June 2026)  
+**Status:** Live (as of February 2026)  
 **URL:** https://wahala-mu.vercel.app/  
 **Platform:** Web (PWA-capable)  
 **Last Updated:** 2026-06-04
