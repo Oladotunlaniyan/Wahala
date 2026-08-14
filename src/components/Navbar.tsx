@@ -47,7 +47,7 @@ const Navbar = () => {
 
             {/* Logo */}
             <span className="text-lg sm:text-xl font-extrabold text-red-600 tracking-tight shrink-0">
-              Wahala
+              SendHelp
             </span>
 
             {/* Nav actions — visible on all screen sizes, with short labels */}

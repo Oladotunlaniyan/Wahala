@@ -1,6 +1,6 @@
 # Product Requirements Document (PRD)
 
-## Wahala-Mu — Nigeria Emergency Contact Directory
+## Send Help (prviously Wahala-Mu) — Nigeria Emergency Contact Directory
 
 **Version:** 1.0  
 **Status:** Live (as of February 2026)  
@@ -12,9 +12,9 @@
 
 ## 1. Executive Summary
 
-Wahala-Mu is a lightweight, mobile-first web application that provides Nigerians with quick access to emergency service contact numbers organized by **State** and **Local Government Area (LGA)**. The name "Wahala" (Hausa for "trouble/problem") combined with "Mu" ("our") colloquially translates to "Our Trouble" — a memorable, locally resonant brand for an emergency resource tool.
+Wahala-Mu is a lightweight, mobile-first web application that provides Nigerians with quick access to emergency service contact numbers organized by **State** and **Local Government Area (LGA)**.
 
-The app solves a critical information gap: during emergencies, citizens often don't know which local agency to call or what the correct number is. By geo-filtering contacts down to the LGA level, Wahala-Mu ensures users get the most relevant, actionable emergency numbers for their exact location.
+The app solves a critical information gap: during emergencies, citizens often don't know which local agency to call or what the correct number is. By geo-filtering contacts down to the LGA level, SendHelp ensures users get the most relevant, actionable emergency numbers for their exact location.
 
 ---
 
