@@ -1,5 +1,5 @@
 import { Phone } from 'lucide-react';
-import { emergencyContacts } from '../data';
+import { emergencyContacts } from '../components/data';
 import { ModalShell } from './ModalShell';
 
 interface EmergencyContactsModalProps {

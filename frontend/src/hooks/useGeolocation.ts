@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import type { LocationData, LocalEmergencyMatch, NominatimAddress } from '../types';
 import { findLocalEmergencyContacts } from '../utils/emergency';
-import emergencyData from '../data';
+import emergencyData from '../components/data';
 
 interface NominatimResponse {
   display_name: string;
