@@ -2,7 +2,7 @@ import { Pool } from 'pg';
 import path from 'path';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
@@ -33,7 +33,7 @@ async function seed() {
   // The path is relative from backend/src/seed.ts -> ../../src/data.ts
   // Use dynamic require to support ts-node
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const dataModule = require(path.resolve(__dirname, '../../src/data.ts'));
+  const dataModule = require(path.resolve(__dirname, './data.ts'));
   const emergencyData = dataModule.default || dataModule.emergencyData || dataModule;
   const statePoliceContacts = dataModule.statePoliceContacts || {};
 
