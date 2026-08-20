@@ -3,7 +3,9 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { Pool } from 'pg';
 
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+console.log(process.env.DATABASE_URL);
 
 const PORT = process.env.PORT ? Number(process.env.PORT) : 4000;
 
@@ -13,8 +15,26 @@ if (!process.env.DATABASE_URL) {
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
+// console.log(pool);
+
 const app = express();
 app.use(express.json());
+
+// GET /
+
+app.get('/', async (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Welcome to the root endpoint of send help"
+  })
+});
+
+app.get('/api/v1', async (require, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Welcome to the api route for send-help"
+  })
+});
 
 // GET /api/v1/health
 app.get('/api/v1/health', async (req, res) => {
