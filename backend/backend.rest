@@ -1,0 +1,33 @@
+GET http://localhost:4000/
+
+###
+GET http://localhost:4000/api/v1 
+
+###
+GET http://localhost:4000/api/v1/health
+
+###
+GET http://localhost:4000/api/v1/states
+
+###
+GET http://localhost:4000/api/v1/states/1/lgas
+
+###
+GET http://localhost:4000/api/v1/contacts?state=lagos&lga=ikeja
+
+###
+GET http://localhost:4000/api/v1/quicknumbers
+
+###
+POST http://localhost:4000/api/v1/reports
+Content-Type: application/json
+
+{
+    "state_id": "",
+    "lga_id": "",
+    "service_name": "",
+    "reported_number": "",
+    "correct_number": "",
+    "reporter_email": "",
+    "notes": ""
+}
